@@ -8,6 +8,10 @@ const Login = () => {
     setIsSignInForm((prev) => !prev);
   };
 
+  const handleButtonClick = () => {
+    //Validate the form data
+  };
+
   return (
     <div>
       <Header />
@@ -39,7 +43,10 @@ const Login = () => {
           placeholder="Password"
           className="p-4 my-4 w-full bg-gray-700"
         />
-        <button className="p-4 my-6 w-full bg-red-700 rounded-lg">
+        <button
+          className="p-4 my-6 w-full bg-red-700 rounded-lg"
+          onClick={handleButtonClick}
+        >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
         <p className="py-4 ml-1 cursor-pointer" onClick={toggleSignInForm}>
