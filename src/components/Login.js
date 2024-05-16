@@ -55,7 +55,7 @@ const Login = () => {
           className="p-4 my-4 w-full bg-gray-700"
         />
 
-        <p className="text-red-500">{errorMessage}</p>
+        <p className="text-red-500 font-bold text-lg py-2">{errorMessage}</p>
 
         <button
           className="p-4 my-6 w-full bg-red-700 rounded-lg"
