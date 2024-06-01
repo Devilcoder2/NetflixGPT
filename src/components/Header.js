@@ -3,9 +3,11 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
+  const user = useSelector((store) => store.user);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -25,12 +27,14 @@ const Header = () => {
         alt="logo "
       />
 
-      <div className="flex">
-        <AccountBoxIcon fontSize="large" />
-        <button onClick={handleSignOut} className="font-bold text-white">
-          Sign Out
-        </button>
-      </div>
+      {user && (
+        <div className="flex">
+          <AccountBoxIcon fontSize="large" />
+          <button onClick={handleSignOut} className="font-bold text-white">
+            Sign Out
+          </button>
+        </div>
+      )}
     </div>
   );
 };
