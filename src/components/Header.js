@@ -1,19 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice.js";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, dispalyName, photoURL } = user;
+        dispatch(addUser({ uid, email, dispalyName, photoURL }));
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+  }, []);
 
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        navigate("/");
-      })
+      .then(() => {})
       .catch((error) => {
         navigate("/error");
       });
